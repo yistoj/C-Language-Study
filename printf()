@@ -1,0 +1,106 @@
+#include<stdio.h>
+#include<stdarg.h>
+
+int Print(char* list, ...)
+{
+	va_list ap;
+	va_start(ap, list);
+	
+	char Buf[256] = {0, };
+	char *cp = list;
+	int ival;
+	float fval;
+	char* sval;
+	
+	while(*cp != '\0')
+	{
+		if(*cp == '%')
+		{
+			cp++;
+			switch(*cp)
+			{
+				case 'd':{
+					ival = va_arg(ap, int);
+					itoa(ival, Buf, 10);
+					int i;
+					for(i = 0; i < (int)strlen(Buf); i++)
+					{
+						putchar(Buf[i]);
+					}
+					break;
+				}
+				case 'f':{
+					fval = va_arg(ap, double);
+					gcvt(fval, 5, Buf);
+					int i;
+					for(i = 0; i < (int)strlen(Buf); i++)
+					{
+						putchar(Buf[i]);
+					}
+					break;
+				}
+				case 's':{
+					sval = va_arg(ap, char*);
+					int i;
+					for(i = 0; i < (int)strlen(sval); i++)
+					{
+						putchar(sval[i]);
+					}
+					break;
+				}
+				case '0':{
+					cp++;
+					if(atoi(cp) <= 9 || atoi(cp) >= 1)
+					{
+						int i;
+						for(i = 0; i < atoi(cp); i++)
+						{
+							putchar('0');
+						}
+					}
+					break;
+				}
+				default:{
+					if(atoi(cp) <= 9 && atoi(cp) >= 1)
+					{
+						int i;
+						for(i = 0; i < atoi(cp); i++)
+						{
+							putchar(' ');
+						}
+					}
+					break;
+				}
+			}
+		}
+		else if((int)*cp == 47)	// \를 나타냄 
+		{
+			cp++;
+			switch(*cp)
+			{
+				case 'n':	putchar('\n');	break;
+				case 'b':	putchar('\b');	break;
+				case 't':{
+					int i;
+					for(i = 0; i < 4; i++)
+					{
+						putchar(' ');
+					}
+					break;
+				}
+			}
+		}
+		else	putchar(*cp);
+		cp++;
+	}
+	va_end(ap);
+}
+
+int main(void)
+{
+	int a;
+	float b;
+	scanf("%d %f", &a, &b);
+	Print("OH %d %f %s\n", a, b, "Hello");
+	Print("%07%d", a);
+}
