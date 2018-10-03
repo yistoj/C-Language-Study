@@ -1,0 +1,46 @@
+#include<stdio.h>
+
+int Stoi(const char* str);
+int	Powt(int data, int up);
+
+int main(void)
+{
+	int ival;
+	ival = stoi("AB5DEF123\0");
+	printf("%d", ival);
+}
+
+int Powt(int data, int up)
+{
+	int i = 1;
+	int value = data;
+	while(i < up)
+	{
+		value *= 10;
+		i++;
+	}
+	return value;
+}
+
+int stoi(const char* str)
+{
+	int i = 0, count = 0, sum = 0, buf[10] = {0, };
+	char* dump = str;
+	while(*(dump+i) != '/0' && *(dump+i) != '\n')
+	{
+		if((int)dump[i] <= 57 && (int)dump[i] >= 48)
+		{
+			buf[count] = (int)dump[i] - 48;
+			count++;
+		}
+		i++;
+	}
+	i = 0;
+	while(buf[i] != NULL)
+	{
+		sum += Powt(buf[i], count);
+		count--;
+		i++;
+	}
+	return sum;
+}
