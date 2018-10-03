@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<stdarg.h>
+
+char* Strcat(char*, const char*, ...);
+int Strlen(char*);
+
+int main(void)
+{
+	char buf1[] = "Hello";
+	char buf2[] = "Hi";
+	Strcat(buf1, buf2);
+	printf("%s", buf1);
+}
+
+int Strlen(char* buf)
+{
+	char* dump = buf;
+	int i = 0;
+	for(i; *(dump + i) != '\0' && *(dump + i) != '\n'; i++);
+	return i;
+}
+
+char* Strcat(char* A, const char* B, ...)
+{
+	va_list ap;
+	va_start(ap, B);
+	int A_num = Strlen(A);
+	int B_num = Strlen(B);
+	int i = 0;
+	for(i; i < B_num; i++)
+	{
+		A[A_num++] = B[i];
+	}
+	A[++A_num] = '\0';
+	return A;
+}
