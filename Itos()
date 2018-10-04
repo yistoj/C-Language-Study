@@ -1,0 +1,37 @@
+#include<stdio.h>
+
+char* Itos(int);
+
+int main(void)
+{
+	int dump = 456222;
+	char* str = Itos(dump);
+	int i = 0;
+	printf("%s", str);
+}
+
+char* Itos(int num)
+{
+	int itr[10];
+	char* str = malloc(10);
+	int i = 0;
+	while(num > 10)
+	{
+		itr[i] = num % 10;
+		num /= 10;
+		i++;
+		if(num < 10)
+		{
+			itr[i] = num % 10;
+		}
+	}
+	int j = 0;
+	while(0 <= i)
+	{
+		*(str + j) = (char)(itr[i] + 48);
+		j++;
+		i--;
+	}
+	str[++j] = '\0';
+	return str;
+}
