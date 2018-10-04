@@ -15,7 +15,7 @@ char* Itos(int num)
 	int itr[10];
 	char* str = malloc(10);
 	int i = 0;
-	while(num > 10)
+	while(num >= 10)
 	{
 		itr[i] = num % 10;
 		num /= 10;
@@ -32,6 +32,6 @@ char* Itos(int num)
 		j++;
 		i--;
 	}
-	str[++j] = '\0';
+	str[j] = '\0';
 	return str;
 }
