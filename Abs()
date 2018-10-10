@@ -1,0 +1,34 @@
+#include<stdio.h>
+
+int Abs(int);
+int Fstring(char*, char);
+
+int main(void)
+{
+	printf("%d\t%d\n", Abs(3), Abs(-10));
+	char str[] = "Hello";
+	printf("%d", Fstring(str, 'o'));
+}
+
+int Abs(int num)
+{
+	if(num >= 0)
+		return num;
+	else if(num < 0)
+	{
+		return num*(-1);
+	}
+}
+
+int Fstring(char* str, char data)
+{
+	int i = 0;
+	while(str != '\n' && str != '\0')
+	{
+		if(*(str+i) == data)
+		{
+			return i;
+		}
+		i++;
+	}
+}
